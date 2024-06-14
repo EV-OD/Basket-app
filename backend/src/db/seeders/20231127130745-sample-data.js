@@ -59,18 +59,6 @@ const DeliveriesData = [
 
     proof_of_delivery: true,
   },
-
-  {
-    // type code here for "relation_one" field
-
-    // type code here for "relation_one" field
-
-    pickup_date: new Date('2023-10-05T15:00:00Z'),
-
-    delivery_date: new Date('2023-10-05T17:00:00Z'),
-
-    proof_of_delivery: true,
-  },
 ];
 
 const OrdersData = [
@@ -91,7 +79,7 @@ const OrdersData = [
 
     order_date: new Date('2023-10-02T11:00:00Z'),
 
-    status: 'completed',
+    status: 'cancelled',
   },
 
   {
@@ -101,7 +89,7 @@ const OrdersData = [
 
     order_date: new Date('2023-10-03T12:00:00Z'),
 
-    status: 'cancelled',
+    status: 'completed',
   },
 
   {
@@ -110,16 +98,6 @@ const OrdersData = [
     // type code here for "relation_many" field
 
     order_date: new Date('2023-10-04T13:00:00Z'),
-
-    status: 'cancelled',
-  },
-
-  {
-    // type code here for "relation_one" field
-
-    // type code here for "relation_many" field
-
-    order_date: new Date('2023-10-05T14:00:00Z'),
 
     status: 'pending',
   },
@@ -165,16 +143,6 @@ const ProductsData = [
 
     // type code here for "relation_one" field
   },
-
-  {
-    name: 'Strawberries',
-
-    description: 'Sweet and juicy strawberries.',
-
-    price: 5.99,
-
-    // type code here for "relation_one" field
-  },
 ];
 
 const ReviewsData = [
@@ -217,16 +185,6 @@ const ReviewsData = [
 
     rating: 5,
   },
-
-  {
-    // type code here for "relation_one" field
-
-    // type code here for "relation_one" field
-
-    content: 'Strawberries were delicious.',
-
-    rating: 5,
-  },
 ];
 
 const SubscriptionsData = [
@@ -263,21 +221,11 @@ const SubscriptionsData = [
   {
     // type code here for "relation_one" field
 
-    frequency: 'weekly',
+    frequency: 'monthly',
 
     start_date: new Date('2023-12-01T00:00:00Z'),
 
     end_date: new Date('2024-12-01T00:00:00Z'),
-  },
-
-  {
-    // type code here for "relation_one" field
-
-    frequency: 'monthly',
-
-    start_date: new Date('2024-01-01T00:00:00Z'),
-
-    end_date: new Date('2024-03-01T00:00:00Z'),
   },
 ];
 
@@ -327,17 +275,6 @@ async function associateDeliveryWithOrder() {
   if (Delivery3?.setOrder) {
     await Delivery3.setOrder(relatedOrder3);
   }
-
-  const relatedOrder4 = await Orders.findOne({
-    offset: Math.floor(Math.random() * (await Orders.count())),
-  });
-  const Delivery4 = await Deliveries.findOne({
-    order: [['id', 'ASC']],
-    offset: 4,
-  });
-  if (Delivery4?.setOrder) {
-    await Delivery4.setOrder(relatedOrder4);
-  }
 }
 
 async function associateDeliveryWithDelivery_personnel() {
@@ -384,17 +321,6 @@ async function associateDeliveryWithDelivery_personnel() {
   if (Delivery3?.setDelivery_personnel) {
     await Delivery3.setDelivery_personnel(relatedDelivery_personnel3);
   }
-
-  const relatedDelivery_personnel4 = await Users.findOne({
-    offset: Math.floor(Math.random() * (await Users.count())),
-  });
-  const Delivery4 = await Deliveries.findOne({
-    order: [['id', 'ASC']],
-    offset: 4,
-  });
-  if (Delivery4?.setDelivery_personnel) {
-    await Delivery4.setDelivery_personnel(relatedDelivery_personnel4);
-  }
 }
 
 async function associateOrderWithConsumer() {
@@ -440,17 +366,6 @@ async function associateOrderWithConsumer() {
   });
   if (Order3?.setConsumer) {
     await Order3.setConsumer(relatedConsumer3);
-  }
-
-  const relatedConsumer4 = await Users.findOne({
-    offset: Math.floor(Math.random() * (await Users.count())),
-  });
-  const Order4 = await Orders.findOne({
-    order: [['id', 'ASC']],
-    offset: 4,
-  });
-  if (Order4?.setConsumer) {
-    await Order4.setConsumer(relatedConsumer4);
   }
 }
 
@@ -500,17 +415,6 @@ async function associateProductWithFarmer() {
   if (Product3?.setFarmer) {
     await Product3.setFarmer(relatedFarmer3);
   }
-
-  const relatedFarmer4 = await Users.findOne({
-    offset: Math.floor(Math.random() * (await Users.count())),
-  });
-  const Product4 = await Products.findOne({
-    order: [['id', 'ASC']],
-    offset: 4,
-  });
-  if (Product4?.setFarmer) {
-    await Product4.setFarmer(relatedFarmer4);
-  }
 }
 
 async function associateReviewWithConsumer() {
@@ -556,17 +460,6 @@ async function associateReviewWithConsumer() {
   });
   if (Review3?.setConsumer) {
     await Review3.setConsumer(relatedConsumer3);
-  }
-
-  const relatedConsumer4 = await Users.findOne({
-    offset: Math.floor(Math.random() * (await Users.count())),
-  });
-  const Review4 = await Reviews.findOne({
-    order: [['id', 'ASC']],
-    offset: 4,
-  });
-  if (Review4?.setConsumer) {
-    await Review4.setConsumer(relatedConsumer4);
   }
 }
 
@@ -614,17 +507,6 @@ async function associateReviewWithProduct() {
   if (Review3?.setProduct) {
     await Review3.setProduct(relatedProduct3);
   }
-
-  const relatedProduct4 = await Products.findOne({
-    offset: Math.floor(Math.random() * (await Products.count())),
-  });
-  const Review4 = await Reviews.findOne({
-    order: [['id', 'ASC']],
-    offset: 4,
-  });
-  if (Review4?.setProduct) {
-    await Review4.setProduct(relatedProduct4);
-  }
 }
 
 async function associateSubscriptionWithConsumer() {
@@ -670,17 +552,6 @@ async function associateSubscriptionWithConsumer() {
   });
   if (Subscription3?.setConsumer) {
     await Subscription3.setConsumer(relatedConsumer3);
-  }
-
-  const relatedConsumer4 = await Users.findOne({
-    offset: Math.floor(Math.random() * (await Users.count())),
-  });
-  const Subscription4 = await Subscriptions.findOne({
-    order: [['id', 'ASC']],
-    offset: 4,
-  });
-  if (Subscription4?.setConsumer) {
-    await Subscription4.setConsumer(relatedConsumer4);
   }
 }
 
